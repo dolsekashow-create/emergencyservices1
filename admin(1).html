@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - Emergency Services 1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a3d62;
+            --primary-light: #1a6fa0;
+            --accent: #f5a623;
+            --white: #ffffff;
+            --light: #f0f2f5;
+            --dark: #1a1a2e;
+            --gray: #6b7b8d;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Cairo', sans-serif; background: var(--light); color: var(--dark); }
+        .login-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            display: flex; align-items: center; justify-content: center; z-index: 99999;
+        }
+        .login-overlay.hidden { display: none; }
+        .login-box {
+            background: var(--white); border-radius: 20px; padding: 40px;
+            width: 90%; max-width: 400px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .login-box h2 { color: var(--primary); margin-bottom: 8px; font-size: 1.5rem; }
+        .login-box p { color: var(--gray); margin-bottom: 25px; font-size: 0.9rem; }
+        .login-box input {
+            width: 100%; padding: 14px 18px; border: 2px solid #e0e0e0; border-radius: 12px;
+            font-family: 'Cairo'; font-size: 1rem; margin-bottom: 15px; text-align: center; outline: none;
+        }
+        .login-box input:focus { border-color: var(--primary); }
+        .login-box button {
+            width: 100%; padding: 14px; background: var(--primary); color: var(--white);
+            border: none; border-radius: 12px; font-family: 'Cairo'; font-size: 1.1rem;
+            font-weight: 700; cursor: pointer; transition: background 0.3s;
+        }
+        .login-box button:hover { background: var(--primary-light); }
+        .login-error { color: var(--danger); font-size: 0.85rem; margin-top: 10px; display: none; }
+        .login-loading { color: var(--primary); font-size: 0.85rem; margin-top: 10px; display: none; }
+        .admin-header {
+            background: var(--white); border-bottom: 3px solid var(--accent);
+            padding: 15px 25px; display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 10px;
+        }
+        .admin-header h1 { font-size: 1.2rem; color: var(--primary); }
+        .admin-header h1 span { color: var(--accent); }
+        .header-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+        .btn {
+            padding: 8px 20px; border-radius: 8px; border: none; font-family: 'Cairo';
+            font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: all 0.3s;
+            display: inline-flex; align-items: center; gap: 6px;
+        }
+        .btn-primary { background: var(--primary); color: var(--white); }
+        .btn-primary:hover { background: var(--primary-light); }
+        .btn-success { background: var(--success); color: var(--white); }
+        .btn-success:hover { opacity: 0.9; }
+        .btn-danger { background: var(--danger); color: var(--white); }
+        .btn-danger:hover { opacity: 0.9; }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+        .btn-warning { background: var(--accent); color: var(--dark); }
+        .btn-warning:hover { opacity: 0.9; }
+        .tabs {
+            display: flex; overflow-x: auto; background: var(--white);
+            border-bottom: 1px solid #e0e0e0; padding: 0 20px; gap: 0;
+        }
+        .tab {
+            padding: 14px 20px; font-weight: 700; font-size: 0.85rem; color: var(--gray);
+            cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.3s;
+        }
+        .tab:hover { color: var(--primary); }
+        .tab.active { color: var(--primary); border-bottom-color: var(--accent); }
+        .admin-body { padding: 25px; max-width: 1000px; margin: 0 auto; }
+        .panel { display: none; }
+        .panel.active { display: block; }
+        .card {
+            background: var(--white); border-radius: 12px; padding: 25px;
+            margin-bottom: 20px; box-shadow: var(--shadow);
+        }
+        .card h3 {
+            font-size: 1rem; font-weight: 800; color: var(--primary);
+            margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid var(--light);
+        }
+        .form-group { margin-bottom: 16px; }
+        .form-group label {
+            display: block; font-weight: 700; color: var(--dark); margin-bottom: 5px; font-size: 0.85rem;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 10px 14px; border: 2px solid #e0e0e0; border-radius: 8px;
+            font-family: 'Cairo'; font-size: 0.9rem; outline: none; transition: border-color 0.3s;
+        }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .img-upload-area {
+            border: 2px dashed #ccc; border-radius: 12px; padding: 20px;
+            text-align: center; cursor: pointer; transition: all 0.3s; position: relative;
+            min-height: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .img-upload-area:hover { border-color: var(--primary); background: rgba(10,61,98,0.03); }
+        .img-upload-area input[type="file"] {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0; cursor: pointer;
+        }
+        .img-upload-area .upload-icon { font-size: 2rem; margin-bottom: 8px; }
+        .img-upload-area p { color: var(--gray); font-size: 0.85rem; }
+        .img-preview {
+            max-width: 100%; max-height: 200px; border-radius: 8px; margin-top: 10px;
+            object-fit: contain; display: none;
+        }
+        .upload-status { font-size: 0.8rem; margin-top: 8px; font-weight: 600; }
+        .status-success { color: var(--success); }
+        .status-error { color: var(--danger); }
+        .status-loading { color: var(--primary); }
+        .img-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .toast {
+            position: fixed; bottom: 25px; right: 25px; padding: 14px 28px;
+            border-radius: 10px; color: var(--white); font-weight: 700; font-size: 0.9rem;
+            z-index: 9999; transform: translateY(100px); opacity: 0; transition: all 0.3s;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast-success { background: var(--success); }
+        .toast-error { background: var(--danger); }
+        .pass-change-section {
+            border: 2px solid var(--accent); border-radius: 12px; padding: 25px;
+            background: linear-gradient(135deg, #fff9e6, #fff3cc);
+        }
+        .pass-change-section h3 { color: var(--accent) !important; border-bottom-color: var(--accent) !important; }
+        .pass-match { font-size: 0.8rem; margin-top: 4px; font-weight: 600; }
+        .pass-match.ok { color: var(--success); }
+        .pass-match.no { color: var(--danger); }
+        @media (max-width: 768px) {
+            .admin-body { padding: 15px; }
+            .card { padding: 18px; }
+            .img-grid { grid-template-columns: 1fr; }
+            .admin-header { flex-direction: column; gap: 10px; }
+            .tabs { padding: 0 10px; }
+            .tab { padding: 10px 14px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-box">
+            <h2>🔐 لوحة التحكم</h2>
+            <p>Emergency Services 1</p>
+            <input type="password" id="loginPass" placeholder="كلمة المرور" onkeypress="if(event.key==='Enter')doLogin()">
+            <button onclick="doLogin()">دخول</button>
+            <div class="login-error" id="loginError">كلمة المرور غير صحيحة</div>
+            <div class="login-loading" id="loginLoading">⏳ جاري التحقق...</div>
+        </div>
+    </div>
+    <div class="admin-header">
+        <h1>⚙️ لوحة تحكم <span>Emergency Services 1</span></h1>
+        <div class="header-actions">
+            <button class="btn btn-success" onclick="saveConfig()">💾 حفظ التعديلات</button>
+            <button class="btn btn-outline" onclick="window.open('index.html','_blank')">👁️ معاينة</button>
+            <button class="btn btn-danger" onclick="logout()">خروج</button>
+        </div>
+    </div>
+    <div class="tabs">
+        <div class="tab active" onclick="switchTab('general',this)">⚙️ عام</div>
+        <div class="tab" onclick="switchTab('hero',this)">🖼️ الهيرو</div>
+        <div class="tab" onclick="switchTab('about',this)">👤 من نحن</div>
+        <div class="tab" onclick="switchTab('services',this)">🔧 الخدمات</div>
+        <div class="tab" onclick="switchTab('counters',this)">📊 الأرقام</div>
+        <div class="tab" onclick="switchTab('images',this)">📷 الصور</div>
+        <div class="tab" onclick="switchTab('contact',this)">📞 التواصل</div>
+        <div class="tab" onclick="switchTab('logo',this)">🏷️ اللوجو</div>
+        <div class="tab" onclick="switchTab('password',this)">🔑 كلمة المرور</div>
+    </div>
+    <div class="admin-body">
+        <div class="panel active" id="panel-general">
+            <div class="card"><h3>⚙️ إعدادات عامة</h3>
+                <div class="form-group"><label>اسم الموقع</label><input type="text" id="cfg_siteName" value="Emergency Services 1"></div>
+                <div class="form-group"><label>الوصف أسفل اللوجو</label><input type="text" id="cfg_siteTagline" value="صيانة وتصليح الغسالات - خدمة منزلية"></div>
+                <div class="form-group"><label>نص الشريط العلوي</label><input type="text" id="cfg_topBarText" value="متاحين 24 ساعة - خدمة منزلية فورية"></div>
+                <div class="form-group"><label>عنوان قسم المميزات</label><input type="text" id="cfg_featuresTitle" value="لماذا تختار Emergency Services 1؟"></div>
+                <div class="form-group"><label>وصف الفوتر</label><textarea id="cfg_footerDesc">متخصصون في صيانة وتصليح جميع أنواع الغسالات. خدمة منزلية فورية بأعلى جودة وأفضل الأسعار.</textarea></div>
+            </div>
+        </div>
+        <div class="panel" id="panel-hero">
+            <div class="card"><h3>🖼️ قسم الهيرو</h3>
+                <div class="form-group"><label>العنوان الرئيسي (استخدم &lt;span&gt; للون المميز)</label><input type="text" id="cfg_heroTitle" value='خدمة <span>صيانة وتصليح غسالات</span> فورية بالمنزل'></div>
+                <div class="form-group"><label>الوصف</label><textarea id="cfg_heroDesc">فني متخصص في صيانة جميع أنواع الغسالات الاتوماتيك والفوق اتوماتيك - قطع غيار أصلية - ضمان على الإصلاح - خدمة سريعة في نفس اليوم</textarea></div>
+            </div>
+            <div class="card"><h3>🖼️ صور خلفية الهيرو (3 صور)</h3>
+                <p style="color:var(--gray);font-size:0.85rem;margin-bottom:15px;">ارفع 3 صور واضحة للخلفية (يفضل 1920×800 بكسل)</p>
+                <div class="img-grid">
+                    <div><label style="font-weight:700;margin-bottom:8px;display:block;">الصورة 1</label><div class="img-upload-area"><input type="file" accept="image/*" onchange="uploadImage(this,'hero1','heroPreview1','heroStatus1')"><div class="upload-icon">📷</div><p>اضغط لرفع صورة</p><img class="img-preview" id="heroPreview1"></div><div class="upload-status" id="heroStatus1"></div></div>
+                    <div><label style="font-weight:700;margin-bottom:8px;display:block;">الصورة 2</label><div class="img-upload-area"><input type="file" accept="image/*" onchange="uploadImage(this,'hero2','heroPreview2','heroStatus2')"><div class="upload-icon">📷</div><p>اضغط لرفع صورة</p><img class="img-preview" id="heroPreview2"></div><div class="upload-status" id="heroStatus2"></div></div>
+                    <div><label style="font-weight:700;margin-bottom:8px;display:block;">الصورة 3</label><div class="img-upload-area"><input type="file" accept="image/*" onchange="uploadImage(this,'hero3','heroPreview3','heroStatus3')"><div class="upload-icon">📷</div><p>اضغط لرفع صورة</p><img class="img-preview" id="heroPreview3"></div><div class="upload-status" id="heroStatus3"></div></div>
+                </div>
+            </div>
+        </div>
+        <div class="panel" id="panel-about">
+            <div class="card"><h3>👤 قسم من نحن</h3>
+                <div class="form-group"><label>العنوان</label><input type="text" id="cfg_aboutTitle" value="من نحن - Emergency Services 1 لصيانة وتصليح الغسالات"></div>
+                <div class="form-group"><label>الفقرة الأولى</label><textarea id="cfg_aboutDesc1">نحن فريق متخصص في تقديم خدمات صيانة وتصليح الغسالات بجميع أنواعها. نمتلك خبرة طويلة في مجال إصلاح الأجهزة المنزلية.</textarea></div>
+                <div class="form-group"><label>الفقرة الثانية</label><textarea id="cfg_aboutDesc2">هدفنا هو توفير خدمة صيانة غسالات سريعة وموثوقة تصل إليك في المنزل، مع استخدام قطع غيار أصلية وتقديم ضمان.</textarea></div>
+            </div>
+            <div class="card"><h3>📷 صورة من نحن</h3>
+                <div class="img-upload-area"><input type="file" accept="image/*" onchange="uploadImage(this,'about','aboutPreview','aboutStatus')"><div class="upload-icon">📷</div><p>ارفع صورة لقسم من نحن</p><img class="img-preview" id="aboutPreview"></div><div class="upload-status" id="aboutStatus"></div>
+            </div>
+        </div>
+        <div class="panel" id="panel-services">
+            <div class="card"><h3>🔧 صور الخدمات</h3>
+                <p style="color:var(--gray);font-size:0.85rem;margin-bottom:15px;">ارفع صور لكل خدمة (يفضل 600×400 بكسل)</p>
+                <div class="img-grid">
+                    <div><label style="font-weight:700;margin-bottom:8px;display:block;">صيانة غسالات اتوماتيك</label><div class="img-upload-area"><input type="file" accept="image/*" onchange="uploadImage(this,'service1','svcPreview1','svcStatus1')"><div class="upload-icon">📷</div><p>ارفع الصورة</p><img class="img-preview" id="svcPreview1"></div><div class="upload-status" id="svcStatus1"></div></div>
+                    <div><label style="font-weight:700;margin-bottom:8px;display:block;">تصليح غسالات فوق اتوماتيك</label><div class="img-upload-area"><input type="file" accept="image/*" onchange="uploadImage(this,'service2','svcPreview2','svcStatus2')"><div class="upload-icon">📷</div><p>ارفع الصورة</p><img class="img-preview" id="svcPreview2"></div><div class="upload-status" id="svcStatus2"></div></div>
+                    <div><label style="font-weight:700;margin-bottom:8px;display:block;">صيانة فورية وطوارئ</label><div class="img-upload-area"><input type="file" accept="image/*" onchange="uploadImage(this,'service3','svcPreview3','svcStatus3')"><div class="upload-icon">📷</div><p>ارفع الصورة</p><img class="img-preview" id="svcPreview3"></div><div class="upload-status" id="svcStatus3"></div></div>
+                </div>
+            </div>
+        </div>
+        <div class="panel" id="panel-counters">
+            <div class="card"><h3>📊 الأرقام والإحصائيات</h3>
+                <div class="form-group"><label>عدد العملاء</label><input type="text" id="cfg_counter1" value="+5000"></div>
+                <div class="form-group"><label>سنوات الخبرة</label><input type="text" id="cfg_counter2" value="+10"></div>
+                <div class="form-group"><label>عدد الفنيين</label><input type="text" id="cfg_counter3" value="+20"></div>
+                <div class="form-group"><label>ساعات العمل</label><input type="text" id="cfg_counter4" value="24/7"></div>
+            </div>
+        </div>
+        <div class="panel" id="panel-images">
+            <div class="card"><h3>📷 معرض الصور</h3>
+                <p style="color:var(--gray);font-size:0.85rem;margin-bottom:15px;">ارفع حتى 9 صور لمعرض الأعمال</p>
+                <div class="img-grid">
+                    <div><label style="font-weight:700;margin-bottom:8px;display:block;">صورة 1</label><div class="img-upload-area"><input type="file" accept="image/*" onchange="uploadImage(this,'gallery1','galPreview1','galStatus1')"><div class="upload-icon">📷</div><p>ارفع الصورة</p><img class="img-preview" id="galPreview1"></div><div class="upload-status" id="galStatus1"></div></div>
+                    <div><label style="font-weight:700;margin-bottom:8px;display:block;">صورة 2</label><div class="img-upload-area"><input type="file" accept="image/*" onchange="uploadImage(this,'gallery2','galPreview2','galStatus2')"><div class="upload-icon">📷</div><p>ارفع الصورة</p><img class="img-preview" id="galPreview2"></div><div class="upload-status" id="galStatus2"></div></div>
+                    <div><label style="font-weight:700;margin-bottom:8px;display:block;">صورة 3</label><div class="img-upload-area"><input type="file" accept="image/*" onchange="uploadImage(this,'gallery3','galPreview3','galStatus3')"><div class="upload-icon">📷</div><p>ارفع الصورة</p><img class="img-preview" id="galPreview3"></div><div class="upload-status" id="galStatus3"></div></div>
+                    <div><label style="font-weight:700;margin-bottom:8px;display:block;">صورة 4</label><div class="img-upload-area"><input type="file" accept="image/*" onchange="uploadImage(this,'gallery4','galPreview4','galStatus4')"><div class="upload-icon">📷</div><p>ارفع الصورة</p><img class="img-preview" id="galPreview4"></div><div class="upload-status" id="galStatus4"></div></div>
+                    <div><label style="font-weight:700;margin-bottom:8px;display:block;">صورة 5</label><div class="img-upload-area"><input type="file" accept="image/*" onchange="uploadImage(this,'gallery5','galPreview5','galStatus5')"><div class="upload-icon">📷</div><p>ارفع الصورة</p><img class="img-preview" id="galPreview5"></div><div class="upload-status" id="galStatus5"></div></div>
+                    <div><label style="font-weight:700;margin-bottom:8px;display:block;">صورة 6</label><div class="img-upload-area"><input type="file" accept="image/*" onchange="uploadImage(this,'gallery6','galPreview6','galStatus6')"><div class="upload-icon">📷</div><p>ارفع الصورة</p><img class="img-preview" id="galPreview6"></div><div class="upload-status" id="galStatus6"></div></div>
+                    <div><label style="font-weight:700;margin-bottom:8px;display:block;">صورة 7</label><div class="img-upload-area"><input type="file" accept="image/*" onchange="uploadImage(this,'gallery7','galPreview7','galStatus7')"><div class="upload-icon">📷</div><p>ارفع الصورة</p><img class="img-preview" id="galPreview7"></div><div class="upload-status" id="galStatus7"></div></div>
+                    <div><label style="font-weight:700;margin-bottom:8px;display:block;">صورة 8</label><div class="img-upload-area"><input type="file" accept="image/*" onchange="uploadImage(this,'gallery8','galPreview8','galStatus8')"><div class="upload-icon">📷</div><p>ارفع الصورة</p><img class="img-preview" id="galPreview8"></div><div class="upload-status" id="galStatus8"></div></div>
+                    <div><label style="font-weight:700;margin-bottom:8px;display:block;">صورة 9</label><div class="img-upload-area"><input type="file" accept="image/*" onchange="uploadImage(this,'gallery9','galPreview9','galStatus9')"><div class="upload-icon">📷</div><p>ارفع الصورة</p><img class="img-preview" id="galPreview9"></div><div class="upload-status" id="galStatus9"></div></div>
+                </div>
+            </div>
+        </div>
+        <div class="panel" id="panel-contact">
+            <div class="card"><h3>📞 معلومات التواصل</h3>
+                <div class="form-group"><label>رقم الهاتف</label><input type="text" id="cfg_contactPhone" value="01062630535"></div>
+                <div class="form-group"><label>العنوان</label><input type="text" id="cfg_contactAddress" value="القاهرة، مصر"></div>
+                <div class="form-group"><label>مواعيد العمل</label><input type="text" id="cfg_contactHours" value="متاحين 24 ساعة - 7 أيام في الأسبوع"></div>
+            </div>
+        </div>
+        <div class="panel" id="panel-logo">
+            <div class="card"><h3>🏷️ اللوجو</h3>
+                <div class="img-upload-area"><input type="file" accept="image/*" onchange="uploadImage(this,'logo','logoPreview','logoStatus')"><div class="upload-icon">🏷️</div><p>ارفع اللوجو</p><img class="img-preview" id="logoPreview"></div><div class="upload-status" id="logoStatus"></div>
+            </div>
+        </div>
+        <div class="panel" id="panel-password">
+            <div class="card pass-change-section">
+                <h3>🔑 تغيير كلمة المرور</h3>
+                <div class="form-group"><label>كلمة المرور الحالية</label><input type="password" id="oldPass" placeholder="اكتب كلمة المرور الحالية"></div>
+                <div class="form-group"><label>كلمة المرور الجديدة</label><input type="password" id="newPass" placeholder="4 حروف على الأقل" oninput="checkPassMatch()"></div>
+                <div class="form-group"><label>تأكيد كلمة المرور الجديدة</label><input type="password" id="confirmPass" placeholder="أعد كتابة كلمة المرور الجديدة" oninput="checkPassMatch()"><div class="pass-match" id="passMatchMsg"></div></div>
+                <button class="btn btn-warning" onclick="changePassword()" style="width:100%;padding:12px;font-size:1rem;margin-top:10px;">🔑 تغيير كلمة المرور</button>
+            </div>
+        </div>
+    </div>
+    <div class="toast" id="toast"></div>
+    <script>
+        const SUPABASE_URL='https://aeizymcxnhypvmsdpjum.supabase.co';
+        const SUPABASE_KEY='sb_publishable_npCG48jSMhuaSTapcEtbcw_KBA1psfK';
+        const BUCKET='emergencyservices1';
+        const DEFAULT_PASS='admin2026';
+        let currentPassword=DEFAULT_PASS;
+
+        async function loadPassword(){
+            try{
+                const r=await fetch(SUPABASE_URL+'/storage/v1/object/public/'+BUCKET+'/password.json?t='+Date.now());
+                if(r.ok){const d=await r.json();if(d.password)currentPassword=d.password;}
+            }catch(e){console.log('No password file');}
+        }
+
+        async function doLogin(){
+            const pass=document.getElementById('loginPass').value;
+            const err=document.getElementById('loginError');
+            const load=document.getElementById('loginLoading');
+            err.style.display='none';load.style.display='block';
+            await loadPassword();
+            load.style.display='none';
+            if(pass===currentPassword){
+                document.getElementById('loginOverlay').classList.add('hidden');
+                sessionStorage.setItem('es1_logged','1');
+                sessionStorage.setItem('es1_pass',pass);
+                loadCurrentConfig();loadExistingImages();
+            }else{err.style.display='block';document.getElementById('loginPass').value='';}
+        }
+
+        (async function(){
+            if(sessionStorage.getItem('es1_logged')==='1'){
+                await loadPassword();
+                if(sessionStorage.getItem('es1_pass')===currentPassword){
+                    document.getElementById('loginOverlay').classList.add('hidden');
+                    setTimeout(()=>{loadCurrentConfig();loadExistingImages();},100);
+                }else{sessionStorage.removeItem('es1_logged');sessionStorage.removeItem('es1_pass');}
+            }
+        })();
+
+        function logout(){sessionStorage.removeItem('es1_logged');sessionStorage.removeItem('es1_pass');location.reload();}
+
+        function checkPassMatch(){
+            const n=document.getElementById('newPass').value;
+            const c=document.getElementById('confirmPass').value;
+            const m=document.getElementById('passMatchMsg');
+            if(!c){m.textContent='';return;}
+            if(n===c){m.textContent='✅ متطابقة';m.className='pass-match ok';}
+            else{m.textContent='❌ غير متطابقة';m.className='pass-match no';}
+        }
+
+        async function changePassword(){
+            const o=document.getElementById('oldPass').value;
+            const n=document.getElementById('newPass').value;
+            const c=document.getElementById('confirmPass').value;
+            if(!o||!n||!c){showToast('يرجى ملء جميع الحقول','error');return;}
+            if(o!==currentPassword){showToast('كلمة المرور الحالية غير صحيحة','error');return;}
+            if(n.length<4){showToast('كلمة المرور الجديدة لازم 4 حروف على الأقل','error');return;}
+            if(n!==c){showToast('كلمة المرور الجديدة غير متطابقة','error');return;}
+            if(n===o){showToast('كلمة المرور الجديدة نفس القديمة','error');return;}
+            try{
+                const blob=new Blob([JSON.stringify({password:n})],{type:'application/json'});
+                const r=await fetch(SUPABASE_URL+'/storage/v1/object/'+BUCKET+'/password.json',{
+                    method:'POST',
+                    headers:{'Authorization':'Bearer '+SUPABASE_KEY,'apikey':SUPABASE_KEY,'Content-Type':'application/json','x-upsert':'true'},
+                    body:blob
+                });
+                if(r.ok){
+                    currentPassword=n;sessionStorage.setItem('es1_pass',n);
+                    document.getElementById('oldPass').value='';
+                    document.getElementById('newPass').value='';
+                    document.getElementById('confirmPass').value='';
+                    document.getElementById('passMatchMsg').textContent='';
+                    showToast('✅ تم تغيير كلمة المرور بنجاح');
+                }else{showToast('❌ خطأ في حفظ كلمة المرور','error');}
+            }catch(e){showToast('❌ خطأ: '+e.message,'error');}
+        }
+
+        function switchTab(name,el){
+            document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+            document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+            el.classList.add('active');
+            document.getElementById('panel-'+name).classList.add('active');
+        }
+
+        function showToast(msg,type='success'){
+            const t=document.getElementById('toast');
+            t.textContent=msg;t.className='toast toast-'+type+' show';
+            setTimeout(()=>t.classList.remove('show'),3000);
+        }
+
+        async function uploadImage(input,name,previewId,statusId){
+            const file=input.files[0];if(!file)return;
+            const preview=document.getElementById(previewId);
+            const reader=new FileReader();
+            reader.onload=e=>{preview.src=e.target.result;preview.style.display='block';};
+            reader.readAsDataURL(file);
+            const s=document.getElementById(statusId);
+            s.textContent='⏳ جاري الرفع...';s.className='upload-status status-loading';
+            const ext=file.name.split('.').pop().toLowerCase();
+            const fileName=name+'.'+ext;
+            try{
+                for(const oe of['jpg','jpeg','png','webp']){
+                    await fetch(SUPABASE_URL+'/storage/v1/object/'+BUCKET+'/'+name+'.'+oe,{
+                        method:'DELETE',headers:{'Authorization':'Bearer '+SUPABASE_KEY,'apikey':SUPABASE_KEY}
+                    });
+                }
+                const r=await fetch(SUPABASE_URL+'/storage/v1/object/'+BUCKET+'/'+fileName,{
+                    method:'POST',
+                    headers:{'Authorization':'Bearer '+SUPABASE_KEY,'apikey':SUPABASE_KEY,'Content-Type':file.type,'x-upsert':'true'},
+                    body:file
+                });
+                if(r.ok){s.textContent='✅ تم الرفع بنجاح';s.className='upload-status status-success';showToast('تم رفع '+name+' بنجاح');}
+                else{s.textContent='❌ خطأ في الرفع';s.className='upload-status status-error';showToast('خطأ في الرفع','error');}
+            }catch(e){s.textContent='❌ خطأ';s.className='upload-status status-error';showToast('خطأ: '+e.message,'error');}
+        }
+
+        async function saveConfig(){
+            const fields=['siteName','siteTagline','topBarText','featuresTitle','footerDesc','heroTitle','heroDesc','aboutTitle','aboutDesc1','aboutDesc2','counter1','counter2','counter3','counter4','contactPhone','contactAddress','contactHours'];
+            const config={};
+            fields.forEach(f=>{const el=document.getElementById('cfg_'+f);if(el)config[f]=el.value;});
+            try{
+                const blob=new Blob([JSON.stringify(config,null,2)],{type:'application/json'});
+                const r=await fetch(SUPABASE_URL+'/storage/v1/object/'+BUCKET+'/config.json',{
+                    method:'POST',
+                    headers:{'Authorization':'Bearer '+SUPABASE_KEY,'apikey':SUPABASE_KEY,'Content-Type':'application/json','x-upsert':'true'},
+                    body:blob
+                });
+                if(r.ok)showToast('✅ تم حفظ التعديلات بنجاح');
+                else showToast('❌ خطأ في الحفظ','error');
+            }catch(e){showToast('❌ خطأ: '+e.message,'error');}
+        }
+
+        async function loadCurrentConfig(){
+            try{
+                const r=await fetch(SUPABASE_URL+'/storage/v1/object/public/'+BUCKET+'/config.json?t='+Date.now());
+                if(!r.ok)return;const cfg=await r.json();
+                Object.keys(cfg).forEach(k=>{const el=document.getElementById('cfg_'+k);if(el)el.value=cfg[k];});
+            }catch(e){}
+        }
+
+        async function loadExistingImages(){
+            const map={'logo':'logoPreview','hero1':'heroPreview1','hero2':'heroPreview2','hero3':'heroPreview3','about':'aboutPreview','service1':'svcPreview1','service2':'svcPreview2','service3':'svcPreview3','gallery1':'galPreview1','gallery2':'galPreview2','gallery3':'galPreview3','gallery4':'galPreview4','gallery5':'galPreview5','gallery6':'galPreview6','gallery7':'galPreview7','gallery8':'galPreview8','gallery9':'galPreview9'};
+            for(const[name,pid]of Object.entries(map)){
+                for(const ext of['jpg','jpeg','png','webp']){
+                    try{
+                        const url=SUPABASE_URL+'/storage/v1/object/public/'+BUCKET+'/'+name+'.'+ext+'?t='+Date.now();
+                        const r=await fetch(url,{method:'HEAD'});
+                        if(r.ok){const el=document.getElementById(pid);if(el){el.src=url;el.style.display='block';}break;}
+                    }catch(e){}
+                }
+            }
+        }
+    </script>
+</body>
+</html>

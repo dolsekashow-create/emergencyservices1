@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Services 1 | صيانة وتصليح غسالات - خدمة منزلية فورية</title>
+    <meta name="description" content="صيانة غسالات وتصليح غسالات اتوماتيك بالمنزل. فني غسالات متخصص - قطع غيار أصلية - ضمان على الإصلاح. اتصل الآن 01062630535">
+    <meta name="keywords" content="صيانة غسالات, تصليح غسالات, فني غسالات, صيانة غسالات اتوماتيك, تصليح غسالات بالمنزل, رقم صيانة غسالات, مصلح غسالات, صيانة غسالات مدينة نصر, صيانة غسالات بالقاهرة, تصليح غسالات التجمع الخامس, صيانة غسالات مصر الجديدة, ارقام صيانة غسالات, صيانة فورية, رقم مصلح غسالات, تصليح الغسالة, صيانة الغسالة">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a3d62;
+            --primary-light: #1a6fa0;
+            --accent: #f5a623;
+            --accent-dark: #d4911e;
+            --white: #ffffff;
+            --light: #f8f9fa;
+            --dark: #1a1a2e;
+            --gray: #6b7b8d;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --shadow: 0 4px 20px rgba(0,0,0,0.12);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.15);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            background: var(--white);
+            color: var(--dark);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* === STICKY TOP BAR === */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            padding: 8px 0;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+        }
+        .top-bar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .top-bar-phone {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-decoration: none;
+            direction: ltr;
+            letter-spacing: 1px;
+        }
+        .top-bar-phone:hover { color: var(--white); }
+        .top-bar-phone svg { width: 22px; height: 22px; fill: var(--accent); animation: ring 1.5s infinite; }
+        @keyframes ring {
+            0%, 100% { transform: rotate(0); }
+            10%, 30% { transform: rotate(15deg); }
+            20%, 40% { transform: rotate(-15deg); }
+            50% { transform: rotate(0); }
+        }
+        .top-bar-text {
+            color: var(--white);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .top-bar-nav {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .top-bar-nav a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .top-bar-nav a:hover { color: var(--accent); }
+
+        /* === HEADER === */
+        .header {
+            margin-top: 50px;
+            background: var(--white);
+            padding: 12px 0;
+            border-bottom: 3px solid var(--accent);
+        }
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-area img {
+            height: 60px;
+            width: auto;
+        }
+        .logo-text h1 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            font-weight: 800;
+            line-height: 1.3;
+        }
+        .logo-text span {
+            font-size: 0.75rem;
+            color: var(--gray);
+            font-weight: 600;
+        }
+        .header-cta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .btn-call {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: var(--white);
+            padding: 10px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(245,166,35,0.4);
+            transition: all 0.3s;
+            direction: ltr;
+        }
+        .btn-call:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(245,166,35,0.5);
+        }
+
+        /* === NAV === */
+        .main-nav {
+            background: var(--dark);
+            padding: 0;
+            position: sticky;
+            top: 50px;
+            z-index: 999;
+        }
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            flex-wrap: wrap;
+        }
+        .nav-inner a {
+            color: var(--white);
+            text-decoration: none;
+            padding: 14px 22px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        .nav-inner a:hover, .nav-inner a.active {
+            background: rgba(245,166,35,0.15);
+            border-bottom-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* === HERO SLIDER === */
+        .hero {
+            position: relative;
+            height: 550px;
+            overflow: hidden;
+        }
+        .hero-slide {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .hero-slide.active { opacity: 1; }
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(10,61,98,0.85) 0%, rgba(26,26,46,0.7) 100%);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+        }
+        .hero-content h2 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-shadow: 0 3px 10px rgba(0,0,0,0.3);
+            line-height: 1.4;
+        }
+        .hero-content h2 span { color: var(--accent); }
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .hero-btns a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+        .btn-primary-hero {
+            background: var(--accent);
+            color: var(--dark);
+            box-shadow: 0 4px 20px rgba(245,166,35,0.5);
+        }
+        .btn-primary-hero:hover { transform: scale(1.05); }
+        .btn-outline-hero {
+            border: 2px solid var(--white);
+            color: var(--white);
+        }
+        .btn-outline-hero:hover { background: var(--white); color: var(--dark); }
+        .hero-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 20;
+        }
+        .hero-dots span {
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .hero-dots span.active { background: var(--accent); transform: scale(1.3); }
+
+        /* === PHONE STRIP === */
+        .phone-strip {
+            background: var(--accent);
+            padding: 15px 0;
+            text-align: center;
+        }
+        .phone-strip a {
+            color: var(--dark);
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-decoration: none;
+            direction: ltr;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: 2px;
+        }
+        .phone-strip a:hover { color: var(--primary); }
+        .phone-strip svg { width: 30px; height: 30px; fill: var(--primary); }
+
+        /* === SECTIONS GENERAL === */
+        .section {
+            padding: 70px 0;
+        }
+        .section-light { background: var(--light); }
+        .section-dark { background: var(--dark); color: var(--white); }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .section-title h2 {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        .section-dark .section-title h2 { color: var(--accent); }
+        .section-title p {
+            color: var(--gray);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .section-dark .section-title p { color: rgba(255,255,255,0.7); }
+        .section-title .line {
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        /* === FEATURES === */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .feature-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            border-top: 4px solid transparent;
+        }
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-top-color: var(--accent);
+            box-shadow: var(--shadow-lg);
+        }
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        .feature-icon svg { width: 35px; height: 35px; fill: var(--white); }
+        .feature-card h3 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        .feature-card p { color: var(--gray); font-size: 0.9rem; }
+
+        /* === ABOUT === */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        .about-img {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        .about-img img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+        .about-img .badge {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 1rem;
+        }
+        .about-text h2 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .about-text p {
+            color: var(--gray);
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+        .about-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+        .about-list li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        .about-list li svg { width: 22px; height: 22px; fill: var(--success); flex-shrink: 0; }
+
+        /* === SERVICES === */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .service-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        .service-card-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .service-card-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 60px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.3));
+        }
+        .service-card-body {
+            padding: 25px;
+        }
+        .service-card h3 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        .service-card p { color: var(--gray); font-size: 0.9rem; margin-bottom: 15px; }
+        .service-card .btn-service {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--primary);
+            color: var(--white);
+            padding: 8px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+        .service-card .btn-service:hover { background: var(--accent); color: var(--dark); }
+
+        /* === STEPS === */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+        .step-card {
+            padding: 30px 20px;
+        }
+        .step-num {
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            color: var(--dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin: 0 auto 20px;
+        }
+        .step-card h3 { font-size: 1.1rem; font-weight: 800; color: var(--white); margin-bottom: 10px; }
+        .step-card p { color: rgba(255,255,255,0.7); font-size: 0.9rem; }
+
+        /* === TESTIMONIALS === */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        .testimonial-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 4rem;
+            color: var(--accent);
+            opacity: 0.3;
+            font-family: serif;
+        }
+        .testimonial-stars { color: var(--accent); font-size: 1.1rem; margin-bottom: 12px; }
+        .testimonial-card p { color: var(--gray); font-size: 0.95rem; margin-bottom: 15px; font-style: italic; }
+        .testimonial-author { font-weight: 700; color: var(--primary); }
+
+        /* === ARTICLES === */
+        .article-block {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        .article-block h2 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--accent);
+            display: inline-block;
+        }
+        .article-block h3 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary-light);
+            margin: 25px 0 10px;
+        }
+        .article-block p {
+            color: #444;
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+        .article-block ul {
+            padding-right: 25px;
+            margin: 10px 0;
+        }
+        .article-block ul li {
+            color: #444;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        /* === AREAS === */
+        .areas-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+        .area-tag {
+            background: var(--white);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .area-tag:hover { background: var(--primary); color: var(--white); }
+
+        /* === CONTACT === */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        .contact-info-card {
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 15px;
+            padding: 40px;
+        }
+        .contact-info-card h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            color: var(--accent);
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .contact-item-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .contact-item-icon svg { width: 22px; height: 22px; fill: var(--accent); }
+        .contact-item-text h4 { font-size: 0.9rem; font-weight: 700; color: var(--accent); }
+        .contact-item-text p { font-size: 1rem; color: rgba(255,255,255,0.9); direction: ltr; text-align: right; }
+        .contact-form {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+        .contact-form h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; font-weight: 700; color: var(--dark); margin-bottom: 6px; font-size: 0.9rem; }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.95rem;
+            transition: border-color 0.3s;
+            outline: none;
+        }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); }
+        .form-group textarea { resize: vertical; height: 120px; }
+        .btn-submit {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: var(--white);
+            border: none;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
+        /* === CTA SECTION === */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            padding: 60px 0;
+            text-align: center;
+            color: var(--white);
+        }
+        .cta-section h2 { font-size: 2rem; font-weight: 900; margin-bottom: 15px; }
+        .cta-section p { font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9; }
+        .cta-phone {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 16px 45px;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-decoration: none;
+            direction: ltr;
+            box-shadow: 0 6px 25px rgba(245,166,35,0.4);
+            transition: all 0.3s;
+        }
+        .cta-phone:hover { transform: scale(1.05); }
+
+        /* === FOOTER === */
+        .footer {
+            background: var(--dark);
+            color: rgba(255,255,255,0.7);
+            padding: 50px 0 20px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer h4 { color: var(--accent); font-size: 1.1rem; font-weight: 800; margin-bottom: 20px; }
+        .footer p { font-size: 0.9rem; line-height: 1.8; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--accent); }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+        .footer-bottom a { color: var(--accent); text-decoration: none; }
+
+        /* === FLOATING BUTTONS === */
+        .floating-btns {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            z-index: 9998;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .float-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            animation: float-pulse 2s infinite;
+        }
+        .float-btn:hover { transform: scale(1.15); }
+        .float-btn svg { width: 30px; height: 30px; }
+        .float-whatsapp { background: #25d366; }
+        .float-whatsapp svg { fill: white; }
+        .float-call { background: var(--primary); }
+        .float-call svg { fill: white; }
+        @keyframes float-pulse {
+            0%, 100% { box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+            50% { box-shadow: 0 4px 25px rgba(0,0,0,0.5); }
+        }
+
+        /* === GALLERY === */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            height: 250px;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .gallery-item:hover img { transform: scale(1.08); }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            .top-bar-nav { display: none; }
+            .header-inner { flex-direction: column; gap: 10px; }
+            .btn-call { font-size: 0.9rem; padding: 8px 18px; }
+            .hero { height: 450px; }
+            .hero-content h2 { font-size: 1.6rem; }
+            .hero-content p { font-size: 1rem; }
+            .hero-btns a { padding: 10px 22px; font-size: 0.9rem; }
+            .about-grid, .contact-grid { grid-template-columns: 1fr; }
+            .about-img img { height: 280px; }
+            .nav-inner a { padding: 10px 12px; font-size: 0.8rem; }
+            .phone-strip a { font-size: 1.3rem; }
+            .section { padding: 50px 0; }
+            .article-block { padding: 25px; }
+            .cta-phone { font-size: 1.1rem; padding: 12px 30px; }
+            .floating-btns { bottom: 15px; left: 15px; }
+            .float-btn { width: 52px; height: 52px; }
+        }
+
+        /* === MOBILE MENU === */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+        .mobile-menu-btn span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background: var(--white);
+            margin: 5px 0;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        @media (max-width: 768px) {
+            .mobile-menu-btn { display: block; }
+            .nav-inner {
+                flex-direction: column;
+                display: none;
+            }
+            .nav-inner.active { display: flex; }
+            .nav-inner a { text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        }
+
+        /* Counters */
+        .counters { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; text-align: center; }
+        .counter-item h3 { font-size: 2.5rem; font-weight: 900; color: var(--accent); }
+        .counter-item p { color: rgba(255,255,255,0.8); font-weight: 600; }
+
+        /* FAQ */
+        .faq-item { background: var(--white); border-radius: 12px; margin-bottom: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .faq-q { padding: 18px 25px; font-weight: 700; color: var(--primary); cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.3s; }
+        .faq-q:hover { background: var(--light); }
+        .faq-q::after { content: '+'; font-size: 1.3rem; color: var(--accent); font-weight: 900; transition: transform 0.3s; }
+        .faq-item.open .faq-q::after { transform: rotate(45deg); }
+        .faq-a { padding: 0 25px; max-height: 0; overflow: hidden; transition: all 0.3s; color: var(--gray); font-size: 0.95rem; }
+        .faq-item.open .faq-a { padding: 0 25px 18px; max-height: 500px; }
+    </style>
+</head>
+<body>
+
+    <!-- TOP BAR (STICKY) -->
+    <div class="top-bar">
+        <div class="top-bar-inner">
+            <a href="tel:01062630535" class="top-bar-phone">
+                <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                01062630535
+            </a>
+            <span class="top-bar-text" id="topBarText">متاحين 24 ساعة - خدمة منزلية فورية</span>
+            <nav class="top-bar-nav">
+                <a href="#home">الرئيسية</a>
+                <a href="#about">من نحن</a>
+                <a href="#services">خدماتنا</a>
+                <a href="#articles">مقالات</a>
+                <a href="#contact">تواصل معنا</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo-area">
+                <img id="siteLogo" src="" alt="Emergency Services 1">
+                <div class="logo-text">
+                    <h1 id="siteName">Emergency Services 1</h1>
+                    <span id="siteTagline">صيانة وتصليح الغسالات - خدمة منزلية</span>
+                </div>
+            </div>
+            <div class="header-cta">
+                <a href="tel:01062630535" class="btn-call">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    اتصل الآن
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAV -->
+    <nav class="main-nav">
+        <button class="mobile-menu-btn" onclick="document.querySelector('.nav-inner').classList.toggle('active')">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="nav-inner">
+            <a href="#home" class="active">الرئيسية</a>
+            <a href="#about">من نحن</a>
+            <a href="#services">خدماتنا</a>
+            <a href="#steps">كيف نعمل</a>
+            <a href="#articles">مقالات</a>
+            <a href="#areas">مناطق الخدمة</a>
+            <a href="#gallery">معرض الصور</a>
+            <a href="#faq">أسئلة شائعة</a>
+            <a href="#contact">تواصل معنا</a>
+        </div>
+    </nav>
+
+    <!-- HERO SLIDER -->
+    <section class="hero" id="home">
+        <div class="hero-slide active" id="heroSlide1" style="background-image: url(''); background-color: var(--primary);"></div>
+        <div class="hero-slide" id="heroSlide2" style="background-image: url(''); background-color: var(--primary-light);"></div>
+        <div class="hero-slide" id="heroSlide3" style="background-image: url(''); background-color: var(--dark);"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h2 id="heroTitle">خدمة <span>صيانة وتصليح غسالات</span> فورية بالمنزل</h2>
+            <p id="heroDesc">فني متخصص في صيانة جميع أنواع الغسالات الاتوماتيك والفوق اتوماتيك - قطع غيار أصلية - ضمان على الإصلاح - خدمة سريعة في نفس اليوم</p>
+            <div class="hero-btns">
+                <a href="tel:01062630535" class="btn-primary-hero">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    اتصل الآن
+                </a>
+                <a href="https://wa.me/2001062630535" class="btn-outline-hero" target="_blank">
+                    واتساب
+                </a>
+            </div>
+        </div>
+        <div class="hero-dots">
+            <span class="active" onclick="goSlide(0)"></span>
+            <span onclick="goSlide(1)"></span>
+            <span onclick="goSlide(2)"></span>
+        </div>
+    </section>
+
+    <!-- PHONE STRIP -->
+    <div class="phone-strip">
+        <a href="tel:01062630535">
+            <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            اتصل الآن: 01062630535
+        </a>
+    </div>
+
+    <!-- FEATURES -->
+    <section class="section" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2 id="featuresTitle">لماذا تختار Emergency Services 1؟</h2>
+                <p>نقدم أفضل خدمة صيانة وتصليح غسالات بأعلى جودة وأسرع وقت</p>
+                <div class="line"></div>
+            </div>
+            <div class="features-grid" id="featuresGrid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    </div>
+                    <h3>فنيين متخصصين</h3>
+                    <p>فريق من أمهر الفنيين المتخصصين في صيانة وتصليح جميع أنواع الغسالات الاتوماتيك والعادية بخبرة سنوات طويلة</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                    </div>
+                    <h3>خدمة فورية سريعة</h3>
+                    <p>نصلك في أسرع وقت ممكن لإصلاح غسالتك في نفس اليوم. خدمة صيانة غسالات فورية متاحة على مدار الساعة</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                    </div>
+                    <h3>ضمان على الإصلاح</h3>
+                    <p>نقدم ضمان حقيقي على جميع أعمال الصيانة وقطع الغيار الأصلية لضمان راحة بالك التامة</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+                    </div>
+                    <h3>أسعار مناسبة</h3>
+                    <p>أسعار تنافسية ومناسبة لجميع خدمات تصليح الغسالات مع عدم وجود أي رسوم خفية أو مصاريف إضافية</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section section-light" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-img">
+                    <img id="aboutImg" src="" alt="صيانة غسالات" style="background: var(--light);">
+                    <div class="badge">خبرة +10 سنوات</div>
+                </div>
+                <div class="about-text">
+                    <h2 id="aboutTitle">من نحن - Emergency Services 1 لصيانة وتصليح الغسالات</h2>
+                    <p id="aboutDesc1">نحن فريق متخصص في تقديم خدمات صيانة وتصليح الغسالات بجميع أنواعها. نمتلك خبرة طويلة في مجال إصلاح الأجهزة المنزلية ونحرص على تقديم خدمة احترافية بأعلى معايير الجودة.</p>
+                    <p id="aboutDesc2">هدفنا هو توفير خدمة صيانة غسالات سريعة وموثوقة تصل إليك في المنزل، مع استخدام قطع غيار أصلية وتقديم ضمان على كل أعمال الإصلاح. فريقنا مدرب على أحدث تقنيات صيانة الغسالات الاتوماتيك والعادية.</p>
+                    <ul class="about-list">
+                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> صيانة جميع ماركات الغسالات</li>
+                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> قطع غيار أصلية 100%</li>
+                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> ضمان على كل أعمال الإصلاح</li>
+                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> خدمة منزلية في نفس اليوم</li>
+                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> أسعار مناسبة بدون مصاريف خفية</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>خدماتنا في صيانة وتصليح الغسالات</h2>
+                <p>نقدم مجموعة شاملة من خدمات الصيانة والإصلاح لجميع أنواع الغسالات</p>
+                <div class="line"></div>
+            </div>
+            <div class="services-grid" id="servicesGrid">
+                <div class="service-card">
+                    <div class="service-card-img" id="serviceImg1" style="background-color: var(--primary-light);"></div>
+                    <div class="service-card-body">
+                        <h3>صيانة غسالات اتوماتيك</h3>
+                        <p>صيانة شاملة لجميع أنواع الغسالات الاتوماتيك (فتحة أمامية وعلوية) مع تشخيص دقيق للأعطال وإصلاحها باستخدام قطع غيار أصلية.</p>
+                        <a href="tel:01062630535" class="btn-service">احجز الآن ←</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-card-img" id="serviceImg2" style="background-color: var(--primary);"></div>
+                    <div class="service-card-body">
+                        <h3>تصليح غسالات فوق اتوماتيك</h3>
+                        <p>إصلاح جميع أعطال الغسالات الفوق اتوماتيك من جميع الماركات بما في ذلك مشاكل العصر والشطف والتصريف والموتور.</p>
+                        <a href="tel:01062630535" class="btn-service">احجز الآن ←</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-card-img" id="serviceImg3" style="background-color: var(--accent-dark);"></div>
+                    <div class="service-card-body">
+                        <h3>صيانة فورية وطوارئ</h3>
+                        <p>خدمة صيانة فورية للحالات الطارئة مثل تسريب المياه أو توقف الغسالة المفاجئ. نصلك في أسرع وقت لحل المشكلة.</p>
+                        <a href="tel:01062630535" class="btn-service">احجز الآن ←</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STEPS -->
+    <section class="section section-dark" id="steps">
+        <div class="container">
+            <div class="section-title">
+                <h2>كيف نعمل؟</h2>
+                <p>خطوات بسيطة للحصول على خدمة صيانة غسالات احترافية</p>
+                <div class="line"></div>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-num">1</div>
+                    <h3>اتصل بنا</h3>
+                    <p>تواصل معنا عبر الهاتف أو الواتساب واشرح لنا المشكلة التي تواجهها في غسالتك</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">2</div>
+                    <h3>تشخيص العطل</h3>
+                    <p>يصلك الفني المتخصص ويقوم بفحص الغسالة وتشخيص العطل بدقة وتحديد التكلفة</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">3</div>
+                    <h3>الإصلاح الفوري</h3>
+                    <p>يتم إصلاح العطل باستخدام قطع غيار أصلية مع ضمان على الصيانة</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">4</div>
+                    <h3>ضمان وراحة بال</h3>
+                    <p>تحصل على ضمان مكتوب على الإصلاح ومتابعة بعد الخدمة لضمان رضاك التام</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COUNTERS -->
+    <section class="section" style="background: linear-gradient(135deg, var(--primary), var(--dark)); padding: 50px 0;">
+        <div class="container">
+            <div class="counters">
+                <div class="counter-item"><h3 id="counter1">+5000</h3><p>عميل راضي</p></div>
+                <div class="counter-item"><h3 id="counter2">+10</h3><p>سنوات خبرة</p></div>
+                <div class="counter-item"><h3 id="counter3">+20</h3><p>فني متخصص</p></div>
+                <div class="counter-item"><h3 id="counter4">24/7</h3><p>خدمة متاحة</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section section-light" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>آراء عملائنا</h2>
+                <p>ماذا يقول عملاؤنا عن خدمة صيانة وتصليح الغسالات</p>
+                <div class="line"></div>
+            </div>
+            <div class="testimonials-grid" id="testimonialsGrid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p>خدمة ممتازة جداً، الفني وصل في الميعاد وصلح الغسالة بسرعة. قطع الغيار أصلية والسعر معقول. أنصح الجميع بالتعامل معهم.</p>
+                    <div class="testimonial-author">أحمد محمد - مدينة نصر</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p>كنت محتاجة مصلح غسالات بسرعة والغسالة كانت بتسرب مياه. اتصلت بيهم وخلال ساعتين كان الفني عندي وصلحها. شغل نظيف واحترافي.</p>
+                    <div class="testimonial-author">فاطمة علي - التجمع الخامس</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p>بجد خدمة محترمة وفنيين فاهمين شغلهم. الغسالة رجعت تشتغل زي الجديدة بعد ما كنت خلاص هغيرها. شكراً ليكم.</p>
+                    <div class="testimonial-author">محمد السيد - مصر الجديدة</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ARTICLES (SEO) -->
+    <section class="section" id="articles">
+        <div class="container">
+            <div class="section-title">
+                <h2>مقالات ونصائح صيانة الغسالات</h2>
+                <p>دليلك الشامل لصيانة وتصليح الغسالات والحفاظ عليها</p>
+                <div class="line"></div>
+            </div>
+
+            <!-- Article 1: صيانة غسالات -->
+            <div class="article-block">
+                <h2>صيانة غسالات - دليل شامل للحفاظ على غسالتك</h2>
+                <p>تعتبر الغسالة من أهم الأجهزة المنزلية التي لا يستغنى عنها أي منزل في مصر. صيانة غسالات بشكل منتظم ودوري يساعد على إطالة العمر الافتراضي للجهاز والحفاظ على كفاءته في الأداء. في Emergency Services 1 نقدم لكم أفضل خدمة صيانة غسالات في مصر بأعلى جودة وأسرع وقت استجابة.</p>
+                <h3>أهمية صيانة الغسالة بشكل دوري</h3>
+                <p>صيانة الغسالة الدورية تمنع حدوث الأعطال المفاجئة التي قد تكلفك مبالغ كبيرة في الإصلاح. الاهتمام بتنظيف فلتر الغسالة وحلة الغسيل والحفاظ على التوصيلات الكهربائية سليمة كلها أمور تساهم في عمل الغسالة بكفاءة عالية. خدمة صيانة غسالات اتوماتيك المتخصصة تشمل فحص شامل لجميع أجزاء الغسالة بما في ذلك الموتور والطلمبة والبرمجة الإلكترونية.</p>
+                <h3>متى تحتاج إلى فني صيانة غسالات؟</h3>
+                <p>هناك عدة علامات تدل على أن غسالتك تحتاج إلى صيانة متخصصة:</p>
+                <ul>
+                    <li>الغسالة لا تعصر الملابس بشكل جيد أو لا تعصر نهائياً</li>
+                    <li>تسريب مياه من الغسالة أثناء التشغيل أو بعده</li>
+                    <li>صدور أصوات غريبة أو اهتزاز شديد أثناء دورة الغسيل</li>
+                    <li>عدم سحب الغسالة للمياه أو عدم تصريفها بشكل صحيح</li>
+                    <li>ظهور أكواد خطأ على شاشة الغسالة الاتوماتيك</li>
+                    <li>الباب لا يفتح أو لا يقفل بشكل صحيح</li>
+                    <li>رائحة كريهة تخرج من الغسالة</li>
+                    <li>الغسالة لا تسخن المياه أثناء الغسيل</li>
+                </ul>
+                <p>إذا لاحظت أي من هذه العلامات، لا تتردد في الاتصال بنا على الرقم 01062630535 للحصول على خدمة صيانة غسالات فورية. فريقنا المتخصص سيصلك في أسرع وقت لتشخيص العطل وإصلاحه بأقل تكلفة ممكنة.</p>
+                <h3>نصائح للحفاظ على الغسالة</h3>
+                <p>للحفاظ على غسالتك في أفضل حال ولتقليل الحاجة إلى صيانة الغسالة، ننصحك باتباع هذه الإرشادات: لا تضع كمية ملابس أكثر من الحمولة المسموح بها، استخدم المسحوق المناسب لنوع غسالتك، قم بتنظيف الفلتر بانتظام كل شهر، تأكد من إفراغ جيوب الملابس قبل الغسيل، واترك باب الغسالة مفتوحاً بعد كل غسلة لتجنب العفن والروائح الكريهة.</p>
+            </div>
+
+            <!-- Article 2: تصليح غسالات -->
+            <div class="article-block">
+                <h2>تصليح غسالات - خدمة إصلاح احترافية في المنزل</h2>
+                <p>هل تبحث عن خدمة تصليح غسالات موثوقة وسريعة؟ نحن في Emergency Services 1 نوفر لك أفضل خدمة تصليح غسالات بالمنزل في القاهرة وجميع المناطق المحيطة. فريقنا من الفنيين المتخصصين مؤهل للتعامل مع جميع أنواع الأعطال سواء كانت أعطال ميكانيكية أو كهربائية أو إلكترونية.</p>
+                <h3>أشهر أعطال الغسالات وكيفية تصليحها</h3>
+                <p>تتعرض الغسالات للعديد من الأعطال التي تتطلب تدخل فني تصليح غسالات متخصص. من أشهر هذه الأعطال مشكلة عدم العصر التي قد تكون بسبب تلف في حزام الموتور أو عطل في لوحة التحكم الإلكترونية. أيضاً مشكلة تسريب المياه التي غالباً ما تكون بسبب تلف في جوان الباب أو خرطوم التصريف.</p>
+                <p>مشكلة الاهتزاز الشديد أثناء التشغيل من المشاكل الشائعة أيضاً وقد تكون بسبب عدم استواء الغسالة على الأرض أو تلف في مساعدي الاتزان (الشوك أبسوربر). فني تصليح الغسالات المتخصص لدينا قادر على تشخيص وإصلاح جميع هذه الأعطال باستخدام أحدث أدوات الفحص والكشف.</p>
+                <h3>تصليح غسالات جميع الماركات</h3>
+                <p>نقوم بتصليح غسالات جميع الماركات العالمية والمحلية بما في ذلك: سامسونج، إل جي، توشيبا، شارب، بيكو، وايت بوينت، فريش، زانوسي، بوش، سيمنز، اندست، اريستون، وايت ويل، هيتاشي، وجميع الماركات الأخرى. لدينا قطع غيار أصلية لجميع الموديلات مع ضمان على كل قطعة يتم تركيبها.</p>
+                <h3>مميزات خدمة تصليح الغسالات لدينا</h3>
+                <p>نتميز بسرعة الاستجابة حيث نصلك في نفس اليوم في أغلب الحالات. نستخدم قطع غيار أصلية فقط ونقدم ضمان على كل أعمال التصليح. أسعارنا تنافسية ومناسبة ونقوم بإعلامك بالتكلفة قبل البدء في العمل. لا توجد مصاريف خفية أو رسوم إضافية. اتصل الآن على 01062630535 للحصول على أفضل خدمة تصليح غسالات في مصر.</p>
+            </div>
+
+            <!-- Article 3: صيانة غسالات بالقاهرة -->
+            <div class="article-block">
+                <h2>صيانة غسالات بالقاهرة ومختلف المناطق</h2>
+                <p>نغطي جميع مناطق القاهرة الكبرى بخدمة صيانة غسالات احترافية. سواء كنت في مدينة نصر، مصر الجديدة، التجمع الخامس، الرحاب، الشروق، المعادي، المنيل، المقطم، أو أي منطقة أخرى في القاهرة، فإن فريقنا المتخصص يصلك في أسرع وقت.</p>
+                <h3>صيانة غسالات مدينة نصر</h3>
+                <p>نقدم خدمة صيانة غسالات مدينة نصر بأعلى جودة. فريقنا متواجد بشكل دائم في منطقة مدينة نصر لضمان سرعة الوصول إليك. نتعامل مع جميع أنواع الأعطال ونوفر قطع غيار أصلية لجميع ماركات الغسالات. اتصل بنا الآن وسيصلك الفني في أقل من ساعتين.</p>
+                <h3>صيانة غسالات التجمع الخامس والرحاب والشروق</h3>
+                <p>لعملائنا في التجمع الخامس والرحاب والشروق، نقدم خدمة تصليح غسالات التجمع الخامس وتصليح غسالات الرحاب وتصليح غسالات الشروق بنفس مستوى الجودة والاحترافية. لدينا فنيين متخصصين في هذه المناطق لضمان الوصول السريع وتقديم أفضل خدمة صيانة.</p>
+                <h3>صيانة غسالات مصر الجديدة والمعادي</h3>
+                <p>خدمة صيانة غسالات مصر الجديدة وتصليح غسالات مصر الجديدة متاحة يومياً. نقدم أيضاً خدمة صيانة غسالات بالقاهرة في مناطق المعادي والمنيل والمقطم وجميع أحياء القاهرة. لا تتردد في الاتصال بنا على الرقم 01062630535 لحجز موعد صيانة فوري.</p>
+            </div>
+
+            <!-- Article 4: فني غسالات -->
+            <div class="article-block">
+                <h2>فني غسالات متخصص - أرقام صيانة غسالات موثوقة</h2>
+                <p>هل تبحث عن رقم فني غسالات موثوق؟ هل تحتاج إلى مصلح غسالات اتوماتيك محترف؟ Emergency Services 1 هو الحل الأمثل لك. نوفر لك أفضل فني صيانة غسالات في مصر بخبرة طويلة وكفاءة عالية.</p>
+                <h3>ما الذي يميز فني الغسالات لدينا؟</h3>
+                <p>فني الغسالات في Emergency Services 1 يتميز بالخبرة الطويلة في مجال صيانة وتصليح الغسالات بجميع أنواعها. يمتلك الفني أحدث أدوات الفحص والكشف عن الأعطال ويستخدم قطع غيار أصلية فقط. بالإضافة إلى ذلك، يقدم الفني استشارات ونصائح مجانية للحفاظ على غسالتك في أفضل حال.</p>
+                <h3>رقم صيانة غسالات - رقم مصلح غسالات</h3>
+                <p>للحصول على خدمة صيانة الغسالة أو تصليح الغسالة، يمكنك الاتصال على رقم صيانة غسالات الموحد 01062630535 أو التواصل معنا عبر الواتساب. نحن متاحون على مدار الساعة لاستقبال طلباتكم والرد على استفساراتكم. رقم مصلح الغسالات لدينا هو رقمك الموثوق لحل جميع مشاكل الغسالات.</p>
+                <h3>أرقام صيانة غسالات وأرقام تصليح غسالات</h3>
+                <p>سواء كنت تبحث عن ارقام صيانة غسالات أو ارقام تصليح غسالات أو رقم مصلح غسالات اتوماتيك، فإننا نوفر لك رقماً واحداً يلبي جميع احتياجاتك: 01062630535. هذا الرقم يربطك مباشرة بفريق خدمة العملاء الذي سيساعدك في حجز موعد صيانة أو تصليح غسالات في أسرع وقت ممكن.</p>
+            </div>
+
+            <!-- Article 5: صيانة غسالات اتوماتيك -->
+            <div class="article-block">
+                <h2>صيانة غسالات اتوماتيك - مصلح غسالات اتوماتيك</h2>
+                <p>الغسالات الاتوماتيك أصبحت الخيار الأول لمعظم المنازل المصرية نظراً لسهولة استخدامها وكفاءتها في الغسيل. لكن مع كثرة الاستخدام قد تتعرض لأعطال تتطلب مصلح غسالات اتوماتيك متخصص يفهم التقنيات الحديثة المستخدمة في هذه الأجهزة.</p>
+                <h3>أعطال الغسالة الاتوماتيك الشائعة</h3>
+                <p>من أكثر أعطال الغسالات الاتوماتيك شيوعاً: مشكلة عدم الدوران التي قد تكون بسبب تلف في الموتور أو حزام السير، مشكلة عدم التصريف التي غالباً ما تحدث بسبب انسداد الفلتر أو تلف طلمبة التصريف، مشكلة عدم التسخين التي قد تكون بسبب تلف السخان أو الحساس الحراري. كل هذه الأعطال يتم إصلاحها بسهولة بواسطة فني صيانة غسالات اتوماتيك متخصص.</p>
+                <h3>تصليح غسالات بالمنزل</h3>
+                <p>نقدم خدمة تصليح غسالات بالمنزل لراحتك. لا حاجة لنقل الغسالة إلى أي مركز صيانة، فالفني يأتي إليك مجهزاً بجميع الأدوات وقطع الغيار اللازمة. خدمة تصليح الغسالة في المنزل توفر عليك الوقت والجهد وتضمن حل المشكلة في أسرع وقت. اتصل الآن على 01062630535 لحجز موعد تصليح غسالات بالمنزل.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- AREAS -->
+    <section class="section section-light" id="areas">
+        <div class="container">
+            <div class="section-title">
+                <h2>مناطق خدمتنا - صيانة وتصليح غسالات</h2>
+                <p>نغطي جميع مناطق القاهرة الكبرى بخدمة صيانة احترافية</p>
+                <div class="line"></div>
+            </div>
+            <div class="areas-tags" id="areasGrid">
+                <span class="area-tag">مدينة نصر</span>
+                <span class="area-tag">مصر الجديدة</span>
+                <span class="area-tag">التجمع الخامس</span>
+                <span class="area-tag">الرحاب</span>
+                <span class="area-tag">الشروق</span>
+                <span class="area-tag">المعادي</span>
+                <span class="area-tag">المنيل</span>
+                <span class="area-tag">المقطم</span>
+                <span class="area-tag">القاهرة</span>
+                <span class="area-tag">الجيزة</span>
+                <span class="area-tag">6 أكتوبر</span>
+                <span class="area-tag">الشيخ زايد</span>
+                <span class="area-tag">حلوان</span>
+                <span class="area-tag">المنيب</span>
+                <span class="area-tag">فيصل</span>
+                <span class="area-tag">الهرم</span>
+                <span class="area-tag">العباسية</span>
+                <span class="area-tag">شبرا</span>
+                <span class="area-tag">عين شمس</span>
+                <span class="area-tag">المطرية</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="section" id="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>معرض أعمالنا</h2>
+                <p>نماذج من أعمال صيانة وتصليح الغسالات</p>
+                <div class="line"></div>
+            </div>
+            <div class="gallery-grid" id="galleryGrid">
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section-light" id="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>أسئلة شائعة عن صيانة الغسالات</h2>
+                <p>إجابات على أكثر الأسئلة شيوعاً حول خدمة صيانة وتصليح الغسالات</p>
+                <div class="line"></div>
+            </div>
+            <div id="faqContainer">
+                <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">كم تكلفة صيانة الغسالة؟</div><div class="faq-a">تختلف تكلفة الصيانة حسب نوع العطل ونوع الغسالة. نقوم بتشخيص العطل أولاً وإعلامك بالتكلفة الكاملة قبل البدء في الإصلاح. أسعارنا تنافسية ومناسبة.</div></div>
+                <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">هل تتوفر لديكم قطع غيار أصلية؟</div><div class="faq-a">نعم، نستخدم قطع غيار أصلية فقط لجميع ماركات الغسالات مع ضمان على كل قطعة يتم تركيبها.</div></div>
+                <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">كم من الوقت يستغرق الإصلاح؟</div><div class="faq-a">في أغلب الحالات يتم إصلاح العطل في نفس الزيارة خلال ساعة إلى ساعتين. بعض الأعطال المعقدة قد تحتاج وقتاً أطول.</div></div>
+                <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">هل تقدمون ضمان على الصيانة؟</div><div class="faq-a">نعم، نقدم ضمان على جميع أعمال الصيانة وقطع الغيار. مدة الضمان تختلف حسب نوع العطل وقطعة الغيار.</div></div>
+                <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">هل الخدمة متاحة في جميع المناطق؟</div><div class="faq-a">نعم، نغطي جميع مناطق القاهرة الكبرى بما في ذلك مدينة نصر، مصر الجديدة، التجمع الخامس، الرحاب، الشروق، المعادي، المقطم وغيرها.</div></div>
+                <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">ما هي الماركات التي تصلحونها؟</div><div class="faq-a">نصلح جميع ماركات الغسالات بما في ذلك سامسونج، إل جي، توشيبا، شارب، بيكو، وايت بوينت، فريش، زانوسي، بوش وجميع الماركات الأخرى.</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>محتاج صيانة أو تصليح غسالتك؟</h2>
+            <p>اتصل بنا الآن واحصل على خدمة فورية في المنزل</p>
+            <a href="tel:01062630535" class="cta-phone">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                01062630535
+            </a>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>تواصل معنا</h2>
+                <p>نحن هنا لمساعدتك - تواصل معنا بأي طريقة تناسبك</p>
+                <div class="line"></div>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info-card">
+                    <h3>معلومات التواصل</h3>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">
+                            <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                        </div>
+                        <div class="contact-item-text">
+                            <h4>رقم الهاتف</h4>
+                            <p id="contactPhone">01062630535</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        </div>
+                        <div class="contact-item-text">
+                            <h4>العنوان</h4>
+                            <p id="contactAddress" style="direction: rtl; text-align: right;">القاهرة، مصر</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">
+                            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                        </div>
+                        <div class="contact-item-text">
+                            <h4>مواعيد العمل</h4>
+                            <p id="contactHours" style="direction: rtl; text-align: right;">متاحين 24 ساعة - 7 أيام في الأسبوع</p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 25px;">
+                        <a href="https://wa.me/2001062630535" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: #25d366; color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1rem;">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+                            واتساب
+                        </a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>أرسل لنا رسالة</h3>
+                    <div class="form-group"><label>الاسم</label><input type="text" id="formName" placeholder="اكتب اسمك"></div>
+                    <div class="form-group"><label>رقم الهاتف</label><input type="tel" id="formPhone" placeholder="رقم الموبايل"></div>
+                    <div class="form-group"><label>نوع الغسالة</label>
+                        <select id="formType">
+                            <option value="">اختر نوع الغسالة</option>
+                            <option>غسالة اتوماتيك فتحة أمامية</option>
+                            <option>غسالة اتوماتيك فتحة علوية</option>
+                            <option>غسالة فوق اتوماتيك</option>
+                            <option>غسالة عادية</option>
+                            <option>أخرى</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label>وصف المشكلة</label><textarea id="formMsg" placeholder="اشرح المشكلة التي تواجهها..."></textarea></div>
+                    <button class="btn-submit" onclick="sendWhatsApp()">إرسال عبر واتساب</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h4 id="footerName">Emergency Services 1</h4>
+                    <p id="footerDesc">متخصصون في صيانة وتصليح جميع أنواع الغسالات. خدمة منزلية فورية بأعلى جودة وأفضل الأسعار. فنيين متخصصين - قطع غيار أصلية - ضمان على الإصلاح.</p>
+                </div>
+                <div>
+                    <h4>روابط سريعة</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">الرئيسية</a></li>
+                        <li><a href="#about">من نحن</a></li>
+                        <li><a href="#services">خدماتنا</a></li>
+                        <li><a href="#articles">مقالات ونصائح</a></li>
+                        <li><a href="#areas">مناطق الخدمة</a></li>
+                        <li><a href="#contact">تواصل معنا</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>خدماتنا</h4>
+                    <ul class="footer-links">
+                        <li><a href="#services">صيانة غسالات اتوماتيك</a></li>
+                        <li><a href="#services">تصليح غسالات فوق اتوماتيك</a></li>
+                        <li><a href="#services">صيانة فورية وطوارئ</a></li>
+                        <li><a href="#articles">فني غسالات متخصص</a></li>
+                        <li><a href="#articles">مصلح غسالات بالمنزل</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>تواصل معنا</h4>
+                    <ul class="footer-links">
+                        <li><a href="tel:01062630535">📞 01062630535</a></li>
+                        <li><a href="https://wa.me/2001062630535" target="_blank">💬 واتساب</a></li>
+                        <li><a href="#contact">📍 القاهرة، مصر</a></li>
+                        <li><a href="#contact">🕐 متاحين 24 ساعة</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 <span id="footerBrand">Emergency Services 1</span> - جميع الحقوق محفوظة | صيانة وتصليح غسالات</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FLOATING BUTTONS -->
+    <div class="floating-btns">
+        <a href="https://wa.me/2001062630535" target="_blank" class="float-btn float-whatsapp" title="واتساب">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+        </a>
+        <a href="tel:01062630535" class="float-btn float-call" title="اتصل بنا">
+            <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        </a>
+    </div>
+
+    <script>
+        // ===== SUPABASE CONFIG =====
+        const SUPABASE_URL = 'https://aeizymcxnhypvmsdpjum.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_npCG48jSMhuaSTapcEtbcw_KBA1psfK';
+        const BUCKET = 'emergencyservices1';
+
+        // ===== HERO SLIDER =====
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.hero-dots span');
+
+        function goSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            dots[currentSlide].classList.remove('active');
+            currentSlide = n;
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+        setInterval(() => { goSlide((currentSlide + 1) % 3); }, 5000);
+
+        // ===== SEND WHATSAPP =====
+        function sendWhatsApp() {
+            const name = document.getElementById('formName').value;
+            const phone = document.getElementById('formPhone').value;
+            const type = document.getElementById('formType').value;
+            const msg = document.getElementById('formMsg').value;
+            const text = `مرحباً، أنا ${name}\nرقمي: ${phone}\nنوع الغسالة: ${type}\nالمشكلة: ${msg}`;
+            window.open(`https://wa.me/2001062630535?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        // ===== LOAD CONFIG FROM SUPABASE =====
+        async function loadConfig() {
+            try {
+                const res = await fetch(`${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/config.json?t=${Date.now()}`);
+                if (!res.ok) return;
+                const cfg = await res.json();
+
+                // Text content
+                if (cfg.siteName) { document.getElementById('siteName').textContent = cfg.siteName; document.getElementById('footerName').textContent = cfg.siteName; document.getElementById('footerBrand').textContent = cfg.siteName; }
+                if (cfg.siteTagline) document.getElementById('siteTagline').textContent = cfg.siteTagline;
+                if (cfg.heroTitle) document.getElementById('heroTitle').innerHTML = cfg.heroTitle;
+                if (cfg.heroDesc) document.getElementById('heroDesc').textContent = cfg.heroDesc;
+                if (cfg.aboutTitle) document.getElementById('aboutTitle').textContent = cfg.aboutTitle;
+                if (cfg.aboutDesc1) document.getElementById('aboutDesc1').textContent = cfg.aboutDesc1;
+                if (cfg.aboutDesc2) document.getElementById('aboutDesc2').textContent = cfg.aboutDesc2;
+                if (cfg.topBarText) document.getElementById('topBarText').textContent = cfg.topBarText;
+                if (cfg.contactPhone) document.getElementById('contactPhone').textContent = cfg.contactPhone;
+                if (cfg.contactAddress) document.getElementById('contactAddress').textContent = cfg.contactAddress;
+                if (cfg.contactHours) document.getElementById('contactHours').textContent = cfg.contactHours;
+                if (cfg.footerDesc) document.getElementById('footerDesc').textContent = cfg.footerDesc;
+                if (cfg.featuresTitle) document.getElementById('featuresTitle').textContent = cfg.featuresTitle;
+
+                // Counters
+                if (cfg.counter1) document.getElementById('counter1').textContent = cfg.counter1;
+                if (cfg.counter2) document.getElementById('counter2').textContent = cfg.counter2;
+                if (cfg.counter3) document.getElementById('counter3').textContent = cfg.counter3;
+                if (cfg.counter4) document.getElementById('counter4').textContent = cfg.counter4;
+
+            } catch(e) { console.log('Config not found, using defaults'); }
+        }
+
+        // ===== LOAD IMAGES FROM SUPABASE =====
+        async function loadImages() {
+            try {
+                // Logo
+                const logoUrl = `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/logo.png?t=${Date.now()}`;
+                const logoRes = await fetch(logoUrl, { method: 'HEAD' });
+                if (logoRes.ok) document.getElementById('siteLogo').src = logoUrl;
+
+                // Hero backgrounds
+                for (let i = 1; i <= 3; i++) {
+                    for (const ext of ['jpg', 'png', 'jpeg', 'webp']) {
+                        const url = `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/hero${i}.${ext}?t=${Date.now()}`;
+                        const r = await fetch(url, { method: 'HEAD' });
+                        if (r.ok) {
+                            document.getElementById(`heroSlide${i}`).style.backgroundImage = `url('${url}')`;
+                            break;
+                        }
+                    }
+                }
+
+                // About image
+                for (const ext of ['jpg', 'png', 'jpeg', 'webp']) {
+                    const url = `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/about.${ext}?t=${Date.now()}`;
+                    const r = await fetch(url, { method: 'HEAD' });
+                    if (r.ok) { document.getElementById('aboutImg').src = url; break; }
+                }
+
+                // Service images
+                for (let i = 1; i <= 3; i++) {
+                    for (const ext of ['jpg', 'png', 'jpeg', 'webp']) {
+                        const url = `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/service${i}.${ext}?t=${Date.now()}`;
+                        const r = await fetch(url, { method: 'HEAD' });
+                        if (r.ok) {
+                            document.getElementById(`serviceImg${i}`).style.backgroundImage = `url('${url}')`;
+                            break;
+                        }
+                    }
+                }
+
+                // Gallery images
+                const galleryGrid = document.getElementById('galleryGrid');
+                for (let i = 1; i <= 9; i++) {
+                    for (const ext of ['jpg', 'png', 'jpeg', 'webp']) {
+                        const url = `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/gallery${i}.${ext}?t=${Date.now()}`;
+                        const r = await fetch(url, { method: 'HEAD' });
+                        if (r.ok) {
+                            galleryGrid.innerHTML += `<div class="gallery-item"><img src="${url}" alt="صيانة غسالات" loading="lazy"></div>`;
+                            break;
+                        }
+                    }
+                }
+
+            } catch(e) { console.log('Images loading error:', e); }
+        }
+
+        // ===== SMOOTH SCROLL =====
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    document.querySelector('.nav-inner')?.classList.remove('active');
+                }
+            });
+        });
+
+        // ===== INIT =====
+        loadConfig();
+        loadImages();
+    </script>
+</body>
+</html>
