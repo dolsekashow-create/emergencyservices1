@@ -135,6 +135,10 @@
         .pass-match { font-size: 0.8rem; margin-top: 4px; font-weight: 600; }
         .pass-match.ok { color: var(--success); }
         .pass-match.no { color: var(--danger); }
+        .article-editor { border: 2px solid #e0e0e0; border-radius: 12px; padding: 20px; background: #fafbfc; }
+        .article-editor .article-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+        .article-editor .article-num { background: var(--primary); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+        .article-editor textarea { min-height: 200px; font-size: 0.85rem; line-height: 1.7; }
         @media (max-width: 768px) {
             .admin-body { padding: 15px; }
             .card { padding: 18px; }
@@ -173,6 +177,7 @@
         <div class="tab" onclick="switchTab('images',this)">📷 الصور</div>
         <div class="tab" onclick="switchTab('contact',this)">📞 التواصل</div>
         <div class="tab" onclick="switchTab('logo',this)">🏷️ اللوجو</div>
+        <div class="tab" onclick="switchTab('articles',this)">📝 المقالات</div>
         <div class="tab" onclick="switchTab('password',this)">🔑 كلمة المرور</div>
     </div>
     <div class="admin-body">
@@ -255,6 +260,16 @@
                 <div class="img-upload-area"><input type="file" accept="image/*" onchange="uploadImage(this,'logo','logoPreview','logoStatus')"><div class="upload-icon">🏷️</div><p>ارفع اللوجو</p><img class="img-preview" id="logoPreview"></div><div class="upload-status" id="logoStatus"></div>
             </div>
         </div>
+        <div class="panel" id="panel-articles">
+            <div class="card">
+                <h3>📝 إدارة المقالات</h3>
+                <p style="color:var(--gray);font-size:0.85rem;margin-bottom:15px;">عدّل المقالات الموجودة أو أضف مقالات جديدة. المحتوى يدعم HTML (مثل &lt;h3&gt; &lt;p&gt; &lt;ul&gt; &lt;li&gt;)</p>
+                <button class="btn btn-primary" onclick="addNewArticle()" style="margin-bottom:20px;">➕ إضافة مقالة جديدة</button>
+                <div id="articlesAdminContainer" style="display:flex;flex-direction:column;gap:20px;">
+                    <p style="color:var(--gray);text-align:center;">⏳ جاري تحميل المقالات...</p>
+                </div>
+            </div>
+        </div>
         <div class="panel" id="panel-password">
             <div class="card pass-change-section">
                 <h3>🔑 تغيير كلمة المرور</h3>
@@ -291,7 +306,7 @@
                 document.getElementById('loginOverlay').classList.add('hidden');
                 sessionStorage.setItem('es1_logged','1');
                 sessionStorage.setItem('es1_pass',pass);
-                loadCurrentConfig();loadExistingImages();
+                loadCurrentConfig();loadExistingImages();loadAdminArticles();
             }else{err.style.display='block';document.getElementById('loginPass').value='';}
         }
 
@@ -300,7 +315,7 @@
                 await loadPassword();
                 if(sessionStorage.getItem('es1_pass')===currentPassword){
                     document.getElementById('loginOverlay').classList.add('hidden');
-                    setTimeout(()=>{loadCurrentConfig();loadExistingImages();},100);
+                    setTimeout(()=>{loadCurrentConfig();loadExistingImages();loadAdminArticles();},100);
                 }else{sessionStorage.removeItem('es1_logged');sessionStorage.removeItem('es1_pass');}
             }
         })();
@@ -341,6 +356,91 @@
                     showToast('✅ تم تغيير كلمة المرور بنجاح');
                 }else{showToast('❌ خطأ في حفظ كلمة المرور','error');}
             }catch(e){showToast('❌ خطأ: '+e.message,'error');}
+        }
+
+        // ===== ARTICLES CRUD =====
+        let articlesData = [];
+
+        async function loadAdminArticles() {
+            const container = document.getElementById('articlesAdminContainer');
+            try {
+                const r = await fetch(SUPABASE_URL+'/rest/v1/articles?select=*&order=sort_order.asc', {
+                    headers: {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+                });
+                if (r.ok) {
+                    articlesData = await r.json();
+                    if (articlesData.length > 0) { renderArticleEditors(); return; }
+                }
+            } catch(e) { console.log('Articles load error'); }
+            container.innerHTML = '<p style="color:var(--gray);text-align:center;">لا توجد مقالات بعد. اضغط "إضافة مقالة جديدة" أو شغّل كود SQL الأول.</p>';
+        }
+
+        function renderArticleEditors() {
+            const container = document.getElementById('articlesAdminContainer');
+            container.innerHTML = articlesData.map((a, i) => `
+                <div class="article-editor" id="artEditor_${a.id}">
+                    <div class="article-header">
+                        <span class="article-num">مقالة ${i+1}</span>
+                        <div style="display:flex;gap:8px;">
+                            <button class="btn btn-success" onclick="saveArticle(${a.id})">💾 حفظ</button>
+                            <button class="btn btn-danger" onclick="deleteArticle(${a.id})" style="padding:8px 12px;">🗑️</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>عنوان المقالة</label>
+                        <input type="text" id="artTitle_${a.id}" value="${a.title.replace(/"/g,'&quot;')}">
+                    </div>
+                    <div class="form-group">
+                        <label>المحتوى (HTML)</label>
+                        <textarea id="artContent_${a.id}">${a.content}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>ترتيب العرض</label>
+                        <input type="number" id="artOrder_${a.id}" value="${a.sort_order}" style="width:100px;">
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function saveArticle(id) {
+            const title = document.getElementById('artTitle_'+id).value;
+            const content = document.getElementById('artContent_'+id).value;
+            const sort_order = parseInt(document.getElementById('artOrder_'+id).value) || 0;
+            if (!title || !content) { showToast('العنوان والمحتوى مطلوبين','error'); return; }
+            try {
+                const r = await fetch(SUPABASE_URL+'/rest/v1/articles?id=eq.'+id, {
+                    method:'PATCH',
+                    headers: {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+                    body: JSON.stringify({title, content, sort_order})
+                });
+                if (r.ok) showToast('✅ تم حفظ المقالة بنجاح');
+                else showToast('❌ خطأ في الحفظ','error');
+            } catch(e) { showToast('❌ خطأ: '+e.message,'error'); }
+        }
+
+        async function addNewArticle() {
+            const newOrder = articlesData.length > 0 ? Math.max(...articlesData.map(a=>a.sort_order)) + 1 : 1;
+            try {
+                const r = await fetch(SUPABASE_URL+'/rest/v1/articles', {
+                    method:'POST',
+                    headers: {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=representation'},
+                    body: JSON.stringify({ title:'مقالة جديدة', content:'<p>اكتب محتوى المقالة هنا...</p>', sort_order: newOrder })
+                });
+                if (r.ok) { showToast('✅ تم إضافة مقالة جديدة'); loadAdminArticles(); }
+                else { const err = await r.text(); showToast('❌ خطأ: '+err,'error'); }
+            } catch(e) { showToast('❌ خطأ: '+e.message,'error'); }
+        }
+
+        async function deleteArticle(id) {
+            if (!confirm('هل أنت متأكد من حذف هذه المقالة؟')) return;
+            try {
+                const r = await fetch(SUPABASE_URL+'/rest/v1/articles?id=eq.'+id, {
+                    method:'DELETE',
+                    headers: {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+                });
+                if (r.ok) { showToast('✅ تم حذف المقالة'); loadAdminArticles(); }
+                else showToast('❌ خطأ في الحذف','error');
+            } catch(e) { showToast('❌ خطأ: '+e.message,'error'); }
         }
 
         function switchTab(name,el){
