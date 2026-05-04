@@ -1453,6 +1453,17 @@
                     const articles = await res.json();
                     if (articles.length > 0) {
                         container.innerHTML = articles.map(a => `<div class="article-block"><h2>${a.title}</h2>${a.content}</div>`).join('');
+                        // Fix article image extensions (jpg/jpeg/png/webp)
+                        const imgs = container.querySelectorAll('img[src*="/article"]');
+                        for (const img of imgs) {
+                            const base = img.src.replace(/\.(jpg|jpeg|png|webp)(\?.*)?$/i, '');
+                            for (const ext of ['jpeg','jpg','png','webp']) {
+                                try {
+                                    const r = await fetch(`${base}.${ext}`, { method: 'HEAD' });
+                                    if (r.ok) { img.src = `${base}.${ext}`; break; }
+                                } catch(e) {}
+                            }
+                        }
                         return;
                     }
                 }
