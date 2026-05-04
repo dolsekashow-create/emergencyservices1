@@ -262,6 +262,48 @@
         </div>
         <div class="panel" id="panel-articles">
             <div class="card">
+                <h3>🖼️ صور المقالات الأربعة</h3>
+                <p style="color:var(--gray);font-size:0.85rem;margin-bottom:15px;">ارفع صورة لكل مقالة - ستظهر تلقائياً في أعلى المقالة على الموقع</p>
+                <div class="img-grid">
+                    <div>
+                        <label style="font-weight:700;margin-bottom:8px;display:block;">📌 صورة المقالة 1 - فن الحرفية</label>
+                        <div class="img-upload-area">
+                            <input type="file" accept="image/*" onchange="uploadImage(this,'article1','artImgPreview1','artImgStatus1')">
+                            <div class="upload-icon">📷</div><p>ارفع صورة المقالة الأولى</p>
+                            <img class="img-preview" id="artImgPreview1">
+                        </div>
+                        <div class="upload-status" id="artImgStatus1"></div>
+                    </div>
+                    <div>
+                        <label style="font-weight:700;margin-bottom:8px;display:block;">📌 صورة المقالة 2 - لماذا نحن الخيار الأول</label>
+                        <div class="img-upload-area">
+                            <input type="file" accept="image/*" onchange="uploadImage(this,'article2','artImgPreview2','artImgStatus2')">
+                            <div class="upload-icon">📷</div><p>ارفع صورة المقالة الثانية</p>
+                            <img class="img-preview" id="artImgPreview2">
+                        </div>
+                        <div class="upload-status" id="artImgStatus2"></div>
+                    </div>
+                    <div>
+                        <label style="font-weight:700;margin-bottom:8px;display:block;">📌 صورة المقالة 3 - دليل التصليح</label>
+                        <div class="img-upload-area">
+                            <input type="file" accept="image/*" onchange="uploadImage(this,'article3','artImgPreview3','artImgStatus3')">
+                            <div class="upload-icon">📷</div><p>ارفع صورة المقالة الثالثة</p>
+                            <img class="img-preview" id="artImgPreview3">
+                        </div>
+                        <div class="upload-status" id="artImgStatus3"></div>
+                    </div>
+                    <div>
+                        <label style="font-weight:700;margin-bottom:8px;display:block;">📌 صورة المقالة 4 - ريادة التغطية</label>
+                        <div class="img-upload-area">
+                            <input type="file" accept="image/*" onchange="uploadImage(this,'article4','artImgPreview4','artImgStatus4')">
+                            <div class="upload-icon">📷</div><p>ارفع صورة المقالة الرابعة</p>
+                            <img class="img-preview" id="artImgPreview4">
+                        </div>
+                        <div class="upload-status" id="artImgStatus4"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
                 <h3>📝 إدارة المقالات</h3>
                 <p style="color:var(--gray);font-size:0.85rem;margin-bottom:15px;">عدّل المقالات الموجودة أو أضف مقالات جديدة. المحتوى يدعم HTML (مثل &lt;h3&gt; &lt;p&gt; &lt;ul&gt; &lt;li&gt;)</p>
                 <button class="btn btn-primary" onclick="addNewArticle()" style="margin-bottom:20px;">➕ إضافة مقالة جديدة</button>
@@ -377,14 +419,24 @@
 
         function renderArticleEditors() {
             const container = document.getElementById('articlesAdminContainer');
-            container.innerHTML = articlesData.map((a, i) => `
+            container.innerHTML = articlesData.map((a, i) => {
+                const artNum = i + 1;
+                const imgUrl = `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/article${artNum}.jpg`;
+                return `
                 <div class="article-editor" id="artEditor_${a.id}">
                     <div class="article-header">
-                        <span class="article-num">مقالة ${i+1}</span>
+                        <span class="article-num">مقالة ${artNum}</span>
                         <div style="display:flex;gap:8px;">
                             <button class="btn btn-success" onclick="saveArticle(${a.id})">💾 حفظ</button>
                             <button class="btn btn-danger" onclick="deleteArticle(${a.id})" style="padding:8px 12px;">🗑️</button>
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label>🖼️ صورة المقالة الحالية</label>
+                        <img src="${imgUrl}" alt="صورة المقالة ${artNum}"
+                             style="max-width:100%;max-height:180px;border-radius:8px;object-fit:cover;display:block;margin-bottom:6px;"
+                             onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                        <p style="display:none;color:var(--gray);font-size:0.8rem;">⚠️ لم يتم رفع الصورة بعد — ارفعها من قسم "صور المقالات" بالأعلى</p>
                     </div>
                     <div class="form-group">
                         <label>عنوان المقالة</label>
@@ -399,7 +451,7 @@
                         <input type="number" id="artOrder_${a.id}" value="${a.sort_order}" style="width:100px;">
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
         }
 
         async function saveArticle(id) {
@@ -507,7 +559,7 @@
         }
 
         async function loadExistingImages(){
-            const map={'logo':'logoPreview','hero1':'heroPreview1','hero2':'heroPreview2','hero3':'heroPreview3','about':'aboutPreview','service1':'svcPreview1','service2':'svcPreview2','service3':'svcPreview3','gallery1':'galPreview1','gallery2':'galPreview2','gallery3':'galPreview3','gallery4':'galPreview4','gallery5':'galPreview5','gallery6':'galPreview6','gallery7':'galPreview7','gallery8':'galPreview8','gallery9':'galPreview9'};
+            const map={'logo':'logoPreview','hero1':'heroPreview1','hero2':'heroPreview2','hero3':'heroPreview3','about':'aboutPreview','service1':'svcPreview1','service2':'svcPreview2','service3':'svcPreview3','gallery1':'galPreview1','gallery2':'galPreview2','gallery3':'galPreview3','gallery4':'galPreview4','gallery5':'galPreview5','gallery6':'galPreview6','gallery7':'galPreview7','gallery8':'galPreview8','gallery9':'galPreview9','article1':'artImgPreview1','article2':'artImgPreview2','article3':'artImgPreview3','article4':'artImgPreview4'};
             for(const[name,pid]of Object.entries(map)){
                 for(const ext of['jpg','jpeg','png','webp']){
                     try{
